@@ -1,0 +1,25 @@
+* {
+    /* padding: 0;
+    margin: 0; */
+}
+
+#grid_form {
+    width: auto;
+    height: auto;
+    /* background-color: blue;         */
+}
+
+#button_panel {
+    /* padding: 10px; */
+    margin: 10px;
+}
+
+.row {
+    display: flex;
+}
+
+.cell {
+    width: 10px;
+    height: 10px;
+    border: 2px black solid;
+}

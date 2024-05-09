@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="button_panel"> 
+        <!-- <button>Reset</button> -->
+        <button id="buttonResize">Resize</button>
+        <button id="buttonReset"> Reset</button>
+    </div>
+    <div id="grid_form"></div>
+    <script>
+        let size = 16// default size of square grid
+        const target = document.getElementById("grid_form") // target to inner generated grid
+        
+        // Class to create new cell element
+        class Cell {
+            constructor() {}
+            
+            div(selector) {
+                const element = document.createElement("div")
+                element.className = "cell"
+                element.addEventListener('mouseover', function() {
+                    let red = Math.random() * (256 - 0) + 0
+                    let green = Math.random() * (256 - 0) + 0
+                    let blue = Math.random() * (256 - 0) + 0
+                    element.style["background-color"] = "rgb("+red+","+green+","+blue+")"
+                })
+                element.addEventListener('mouseout', function() {
+                    setTimeout(function(){element.style["background-color"] = "grey"}, 1000)
+                    // element.style["background-color"] = "white"
+                })
+                selector.append(element)
+            }
+        }
+
+        // Class to create row in grid to inner cell element
+        class Row {
+            constructor() {}
+
+            div(id, selector) {
+                const element = document.createElement("div")
+                element.className = "row"
+                element.setAttribute("id", "row_" + id)
+                selector.append(element)
+            }
+        }
+        
+        // initial new row and cell element
+        const row = new Row()
+        const cell = new Cell()
+
+        // loop for create dynamic grid
+        function createGrid(size){
+            target.textContent = ""
+            for (i = 0; i < size; i++) {
+                row.div(i, target)
+                rowTarget = document.getElementById("row_"+i)
+                for (j = 0; j < size; j++) {
+                    cell.div(rowTarget)
+                }
+            }
+        }
+
+        document.getElementById("buttonResize").addEventListener("click", ()=>{size = prompt("input size"); createGrid(size)})
+        document.getElementById("buttonReset").addEventListener("click", ()=>{createGrid(size)})
+        document.body.onload(createGrid(size))
+    </script>
+</body>
+</html>
